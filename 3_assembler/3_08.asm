@@ -5,7 +5,7 @@ global _start
 section .text
 _start:     GETCHAR             ;macro saves char in EAX
             cmp     al, '0'     ;compares EAX with '0' (ASCII = 48)
-            jg     start_loop  ;if greater or less start loop
+            jg      start_loop  ;if greater start loop
             jmp     quit        ;else quit
 start_loop: cmp     al, '9'     ;compares with '9' (ASCII = 57)
             jnle    quit        ;if bigger, quit
