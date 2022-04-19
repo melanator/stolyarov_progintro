@@ -7,6 +7,6 @@
 | 3.07 :white_check_mark:  |   |   |  |
 | 3.08 :white_check_mark:  |   |   |  |
 | 3.09 :white_check_mark:  |   |   |  |
-| |   |   |  |
+| 3.10 :white_check_mark:  |   |   |  |
 | |   |   |  |
 
