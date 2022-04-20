@@ -10,5 +10,6 @@
 | 3.10 :white_check_mark:  |   |   |  |
 | 3.11 :white_check_mark:  |   |   |  |
 | 3.12 :white_check_mark:  |   |   |  |
+| 3.13 :white_check_mark:  |   |   |  |
 | |   |   |  |
 
