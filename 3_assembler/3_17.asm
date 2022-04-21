@@ -26,6 +26,8 @@ nextchar:   PUTCHAR 0x20        ;print space
 nextchar2:  GETCHAR             ;getting next char
             cmp     al, 0x20    ;if space
             je      nextchar    ;loop back
+            cmp     al, 0x0a    ;if newline
+            je      newline2    ;jump to new line avoiding )
             cmp     al, -1      ;if eof
             je      quit
             PUTCHAR 0x28        ;print (
@@ -33,7 +35,7 @@ nextchar2:  GETCHAR             ;getting next char
             jmp     lp
             
 newline:    PUTCHAR 0x29        ;print )
-            PUTCHAR 0x0a        ;print newline
+newline2:   PUTCHAR 0x0a        ;print newline
             cmp     al, -1      ;if eof leave
             je      quit
             jmp     nextchar2   ;find next char by without printing space
