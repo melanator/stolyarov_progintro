@@ -14,13 +14,14 @@ lp:
             jg      print_digit ;greater -> print
             sub     al, 0x30    ;deduct 30 to get value
             mov     ebx, eax    ;copy al to bh to keep char value           
-            mov     eax, ecx    ;copy ecx to eax to multiply
+            mov     eax, [digit]    ;copy ecx to eax to multiply
             mul dword    [multiplier]  ; *10
             add     eax, ebx    ;adding eax with ebx
-            mov     ecx, eax    ;and moving to counter
+            mov     [digit], eax    ;and moving to counter
             jmp     lp          ;looping back
 
 print_digit:
+            mov     ecx, [digit]
             cmp     ecx, 0
             je      print_zero
 print_loop: PRINT   "*"
@@ -29,5 +30,7 @@ print_zero: PRINT   ""
             PUTCHAR 0x0a
             FINISH        
 
+section .bss
+            digit   resd 1
 section .data 
             multiplier dw 10
