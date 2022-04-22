@@ -33,4 +33,4 @@ print_zero: PRINT   ""
 section .bss
             digit   resd 1
 section .data 
-            multiplier dw 10
+            multiplier dd 10
