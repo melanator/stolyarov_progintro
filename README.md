@@ -17,5 +17,6 @@
 | 3.17 :white_check_mark:  |   |   |  |
 | 3.18 :white_check_mark:  |   |   |  |
 | 3.19 :white_check_mark:  |   |   |  |
-| |   |   |  |
+| 3.20 :white_check_mark:  |   |   |  |
+| 3.21 :white_check_mark:  |   |   |  |
 

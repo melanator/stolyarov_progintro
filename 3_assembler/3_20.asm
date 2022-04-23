@@ -1,3 +1,5 @@
+;program only adds two digits, forgot to add other ones
+
 %include "stud_io.inc"
 global _start
 section .text
@@ -61,13 +63,27 @@ lpd:        cmp ecx, 10                 ;if ecx = 10
         
 
 print_loop:
-            inc ecx
-            xor eax, eax
-pr_lp:      cmp ecx, 1                  ;why stop at ecx=1?
-            je quit
-            PUTCHAR byte [digits+eax]   ;print digits[eax]
-            inc eax
+            inc     ecx
+            xor     eax, eax
+pr_lp:      cmp     ecx, 1                  ;why stop at ecx=1?
+            je      new_line
+            cmp     byte [digits+eax], 0x30 ;if 0
+            jne     zero_flag_on            ;false: put flag on
+            je      avoid_zeros             ;true:  avoid printing 0
+back_:      PUTCHAR byte [digits+eax]       ;print digits[eax]
+back2_:     inc eax
             loop pr_lp
+
+zero_flag_on:
+            mov     [zero_flag], byte 1     ;flag on
+            jmp     back_                   ;back to print char
+
+avoid_zeros:
+            cmp     [zero_flag], byte 1     ;if flag was on
+            je      back_                   ;back to print char
+            jmp     back2_                  ;else do end of 
+new_line:   PUTCHAR 0x0a
+            jmp _start
 quit:       FINISH
 
 
@@ -77,6 +93,7 @@ section .bss
             result  resd 1
             digits resb 10  ;array for storing digits
 section .data 
+            zero_flag   db 0    ;flag to check if zeroes were at beginning
             multiplier dd 10
             counter dd  0
             dividers dd 1000000000, 100000000, 10000000, 1000000, 100000, 10000, 1000, 100, 10, 1 
