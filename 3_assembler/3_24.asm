@@ -72,9 +72,36 @@ write:          cmp     [eax], byte 0
                 loop    write
 .return:        ret
 
+;read(ebx=char*, edx=size) ecx=size, eax=wrong letter
+read:           
+                xor     ecx, ecx
+.loop           GETCHAR
+                cmp     ecx, edx
+                je      .overwrite
+                cmp     al, 0x20            ;if space
+                je      .end
+                cmp     al, -1              ;or EOF
+                je      .end
+                cmp     al, 0x0a            ;of EOL
+                je      .end                ;go save digit
+                cmp     al, 0x30            ;if '0'
+                jl      .error               ;less -> print
+                cmp     al, 0x39            ;if '9'
+                jg      .error               ;greater -> print
+                mov     [ebx+ecx], byte al
+                inc     ecx
+                jmp     .loop                  ;looping back
+.end:           ret     ;return from .end, counter already in ecx
+.error:         ret     ;return from error, letter already in eax
+.overwrite:     mov     eax, dword -1
+                ret 
+
+
+
 
 section .bss    
             test_chars resb 20
+            pointer resd 1
 section .data 
             zero_flag   db 0    ;flag to check if zeroes were at beginning
             multiplier dd 10
