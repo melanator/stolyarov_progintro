@@ -2,26 +2,33 @@
 
 global _start
 section .text
-_start:         mov     eax, 0312303123
-                mov     ecx, test_chars
+_start:
+                mov     ebx, digits_chars   ;copy digits_char* to ebx
+                mov     edx, 10             ;size of digits_chat
+                call    read                ;read
+                mov     ebx, digits_chars
+                call    parse_number
+                mov     [digits_values], eax
+                ;second digit
+                mov     ebx, digits_chars+10   ;copy digits_char* to ebx
+                mov     edx, 10             ;size of digits_chat
+                call    read                ;read
+                mov     ebx, digits_chars+10
+                call    parse_number
+                mov     [digits_values+4], eax
+                ; sum
+                add     eax, dword [digits_values]
+                mov     ecx, result_chars
                 call    num_char
-                mov     eax, test_chars
+                mov     eax, result_chars
                 call    write
-                xor     ecx, ecx
-                PRINT   0x0a
-.lp:            cmp     [test_chars+ecx], byte 0
-                je      quit
-                mov     al, [test_chars+ecx]
-                PUTCHAR al
-                inc     ecx
-                jmp     .lp
 quit:           PUTCHAR 0x0a
                 FINISH
-
-parse_number:   mov     ebx, eax            ;copy str* to ebx
-                xor     eax, eax            ;clean eax for further computing
-                xor     edx, edx            ;clean edx
-.loop:          mov     eax, [ebx+edx]      ;copy to edx
+                
+;parse_number(ebx=char*, ecx=size): eax=value
+parse_number:   xor     edx, edx            ;clean edx
+                xor     eax, eax
+.loop:          mov     al, [ebx]      ;copy to edx
                 cmp     eax, 0x30           ;error if less of greater
                 jl      .error              ;if less or greater
                 cmp     eax, 0x39           ;greater
@@ -33,14 +40,18 @@ parse_number:   mov     ebx, eax            ;copy str* to ebx
                 add     eax, dword [adder]  ;adding eax with ebx
                 mov     [digit], eax        ;and moving to counter
                 inc     edx
+                inc     ebx
                 loop    .loop               ;looping back
                 mov     eax, [digit]        ;move digit
                 mov     dword [digit], 0    ;clean digit
                 ret
 .error:         mov     ecx, 1
+                PRINT   "ERROR"
+                ret
 
 ;num_char(eax=number, ecx=char*)
 num_char:       xor     ebx, ebx
+                mov     [zero_flag], byte 0
 .loop:          cmp     eax, 0              ;if ecx = 10
                 je      .is_end             ;exit loop
 .back:          xor     edx, edx            ;clean edx to keep value
@@ -53,11 +64,20 @@ num_char:       xor     ebx, ebx
                 inc     ecx                 ;ecx++
 .avoid_write:   inc     ebx
                 mov     eax, edx            ;moving remaider for further division
-                jmp     .loop            ;looping back
+                jmp     .loop               ;looping back
 .is_end:        cmp     edx, 0
                 jne     .back
-                mov     [ecx], byte 0
-                ret
+                cmp     [zero_flag], byte 1 ;if flag raised
+                je      .end_zeroes         ;we need to fill zeroes end of digit
+.end_zeroes:    cmp     ebx, 10             ;if ebx>9
+                je      .end                ;end
+                mov     [ecx], byte 0x30    ;else add 0
+                inc     ecx
+                inc     ebx
+                jmp     .end_zeroes
+.end:           mov     [ecx], byte 0
+                ret     
+
 .avoid          cmp     [zero_flag], byte 0
                 je      .avoid_write
                 jmp     .after_flag
@@ -97,11 +117,11 @@ read:
                 ret 
 
 
-
-
 section .bss    
-            test_chars resb 20
             pointer resd 1
+            digits_chars resb 20
+            digits_values resd 2
+            result_chars resb 19
 section .data 
             zero_flag   db 0    ;flag to check if zeroes were at beginning
             multiplier dd 10
