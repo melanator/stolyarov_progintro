@@ -6,8 +6,8 @@
 | ------------- | -------------- |------------- |------------ |
 | 3.07 :white_check_mark:  | 3.22 :white_check_mark:     |   |  |
 | 3.08 :white_check_mark:  | 3.23 :white_check_mark:    |   |  |
-| 3.09 :white_check_mark:  |   |   |  |
-| 3.10 :white_check_mark:  |   |   |  |
+| 3.09 :white_check_mark:  | 3.24 :white_check_mark:  |   |  |
+| 3.10 :white_check_mark:  | 3.25 :white_check_mark:   |   |  |
 | 3.11 :white_check_mark:  |   |   |  |
 | 3.12 :white_check_mark:  |   |   |  |
 | 3.13 :white_check_mark:  |   |   |  |
