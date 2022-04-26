@@ -1,3 +1,5 @@
+%include "stud_io.inc"
+
 %macro ARRAY_FILL 3
     %assign i %1
     %assign j %2
