@@ -6,7 +6,7 @@
     %rep %0
         cmp eax, n
         je %1
-        %rotate -1
+        %rotate 1
         %assign n n+1
     %endrep
 %endmacro
