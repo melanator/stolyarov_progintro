@@ -5,9 +5,9 @@
 | Ознакомительныe этюды | Стек, подпрограммы, модули | Макропроцессор | Взаимодействие с ОС |
 | ------------- | -------------- |------------- |------------ |
 | 3.07 :white_check_mark:  | 3.22 :white_check_mark: | 3.28 :white_check_mark:  |  |
-| 3.08 :white_check_mark:  | 3.23 :white_check_mark: | 3.29 :white_check_mark:    |  |
+| 3.08 :white_check_mark:  | 3.23 :white_check_mark: | 3.2 :white_check_mark:    |  |
 | 3.09 :white_check_mark:  | 3.24 :white_check_mark: | 3.30 :white_check_mark:    |  |
-| 3.10 :white_check_mark:  | 3.25 :white_check_mark: |   |  |
+| 3.10 :white_check_mark:  | 3.25 :white_check_mark: | 3.31 :white_check_mark:      |  |
 | 3.11 :white_check_mark:  |   |   |  |
 | 3.12 :white_check_mark:  |   |   |  |
 | 3.13 :white_check_mark:  |   |   |  |
